@@ -1,0 +1,51 @@
+code_commune,nom_commune,departement,population,type_zone,latitude,longitude
+75001,Paris 1er,Paris,16595,urbain,48.8628,2.3351
+75012,Paris 12e,Paris,143600,urbain,48.8384,2.3885
+69001,Lyon 1er,Rhône,29987,urbain,45.7680,4.8338
+69007,Lyon 7e,Rhône,82459,urbain,45.7500,4.8400
+13001,Marseille 1er,Bouches-du-Rhône,41231,urbain,43.2989,5.3787
+13008,Marseille 8e,Bouches-du-Rhône,78192,urbain,43.2500,5.3800
+31555,Toulouse,Haute-Garonne,479553,urbain,43.6047,1.4442
+33063,Bordeaux,Gironde,254436,urbain,44.8378,0.5792
+44109,Nantes,Loire-Atlantique,309346,urbain,47.2184,1.5536
+59350,Lille,Nord,232787,urbain,50.6292,3.0573
+67482,Strasbourg,Bas-Rhin,280966,urbain,48.5734,7.7521
+35238,Rennes,Ille-et-Vilaine,216815,urbain,48.1173,1.6778
+06088,Nice,Alpes-Maritimes,341522,urbain,43.7102,7.2620
+34172,Montpellier,Hérault,285121,urbain,43.6108,3.8767
+14366,Caen,Calvados,105512,urbain,49.1829,0.3707
+01053,Bourg-en-Bresse,Ain,41527,urbain,46.2055,5.2258
+02408,Laon,Aisne,24855,urbain,49.5639,3.6258
+03190,Moulins,Allier,19664,urbain,46.5667,3.3333
+04070,Digne-les-Bains,Alpes-de-Haute-Provence,16304,urbain,44.0926,6.2361
+05061,Gap,Hautes-Alpes,40631,urbain,44.5596,6.0795
+06029,Cannes,Alpes-Maritimes,73868,urbain,43.5528,7.0174
+07186,Privas,Ardèche,8196,rural,44.7353,4.5997
+08105,Charleville-Mézières,Ardennes,46428,urbain,49.7733,4.7197
+09122,Foix,Ariège,9613,rural,42.9656,1.6058
+10387,Troyes,Aube,61996,urbain,48.2973,4.0744
+11069,Carcassonne,Aude,47068,urbain,43.2130,2.3491
+12202,Rodez,Aveyron,23744,urbain,44.3503,2.5755
+15014,Aurillac,Cantal,26116,urbain,44.9264,2.4397
+16015,Angoulême,Charente,41740,urbain,45.6484,0.1561
+17300,La Rochelle,Charente-Maritime,76607,urbain,46.1591,1.1520
+18033,Bourges,Cher,64668,urbain,47.0844,2.3964
+19031,Tulle,Corrèze,14771,rural,45.2658,1.7708
+21231,Dijon,Côte-d'Or,155090,urbain,47.3220,5.0415
+22278,Saint-Brieuc,Côtes-d'Armor,45207,urbain,48.5139,2.7608
+23096,Guéret,Creuse,13237,rural,46.1697,1.8714
+24322,Périgueux,Dordogne,29775,urbain,45.1834,0.7214
+25056,Besançon,Doubs,116353,urbain,47.2380,6.0243
+26362,Valence,Drôme,62481,urbain,44.9334,4.8924
+27229,Évreux,Eure,48564,urbain,49.0246,1.1508
+28085,Chartres,Eure-et-Loir,38426,urbain,48.4469,1.4850
+29232,Quimper,Finistère,63473,urbain,47.9960,4.0970
+30189,Nîmes,Gard,150672,urbain,43.8367,4.3601
+32013,Auch,Gers,21618,urbain,43.6461,0.5855
+36044,Châteauroux,Indre,44173,urbain,46.8108,1.6908
+37261,Tours,Indre-et-Loire,136463,urbain,47.3941,0.6848
+38185,Grenoble,Isère,158552,urbain,45.1885,5.7245
+39300,Lons-le-Saunier,Jura,17158,urbain,46.6750,5.5539
+40192,Mont-de-Marsan,Landes,29807,urbain,43.8897,0.4997
+41018,Blois,Loir-et-Cher,45903,urbain,47.5858,1.3352
+42218,Saint-Étienne,Loire,172023,urbain,45.4397,4.3872

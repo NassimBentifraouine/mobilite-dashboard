@@ -1,0 +1,123 @@
+{% extends "base.html" %}
+
+{% block title %}Accueil - Tableau de bord Mobilité{% endblock %}
+
+{% block content %}
+<div class="row mb-4">
+    <div class="col-12">
+        <h1 class="display-5 text-center mb-4">
+            <i class="fas fa-chart-line"></i> Tableau de bord d'analyse de mobilité
+        </h1>
+        <p class="lead text-center text-muted">
+            Analyse des inégalités de mobilité entre les communes françaises
+        </p>
+    </div>
+</div>
+
+<div class="row mb-4">
+    <div class="col-md-4">
+        <div class="card stat-card">
+            <i class="fas fa-users text-primary"></i>
+            <h3>{{ "{:,}".format(indicators.population_totale).replace(',', ' ') }}</h3>
+            <p>Population totale</p>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card stat-card">
+            <i class="fas fa-city text-info"></i>
+            <h3>{{ indicators.nb_communes }}</h3>
+            <p>Communes analysées</p>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card stat-card">
+            <i class="fas fa-bus text-success"></i>
+            <h3>{{ indicators.taux_couverture_transport }}%</h3>
+            <p>Taux de couverture transport</p>
+        </div>
+    </div>
+</div>
+
+<div class="row mb-4">
+    <div class="col-md-4">
+        <div class="card stat-card">
+            <i class="fas fa-clock text-warning"></i>
+            <h3>{{ indicators.temps_moyen_domicile_travail }} min</h3>
+            <p>Temps moyen domicile-travail</p>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card stat-card">
+            <i class="fas fa-leaf text-success"></i>
+            <h3>{{ indicators.taux_mobilite_verte }}%</h3>
+            <p>Taux de mobilité verte</p>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card stat-card">
+            <i class="fas fa-exclamation-triangle text-danger"></i>
+            <h3>{{ indicators.nb_zones_mal_desservies }}</h3>
+            <p>Zones mal desservies</p>
+        </div>
+    </div>
+</div>
+
+<div class="row mb-4">
+    <div class="col-12 text-center">
+        <h4>Exporter les données</h4>
+        <a href="/export/csv" class="btn btn-primary btn-export">
+            <i class="fas fa-file-csv"></i> Télécharger CSV
+        </a>
+        <a href="/export/pdf" class="btn btn-danger btn-export">
+            <i class="fas fa-file-pdf"></i> Télécharger PDF
+        </a>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-12">
+        <div class="chart-container">
+            <h4 class="mb-3"><i class="fas fa-chart-pie"></i> Distribution des modes de transport</h4>
+            <img src="data:image/png;base64,{{ transport_chart }}" class="img-fluid" alt="Distribution transport">
+        </div>
+    </div>
+</div>
+
+<div class="row mb-4">
+    <div class="col-12">
+        <div class="chart-container">
+            <h4 class="mb-3"><i class="fas fa-chart-bar"></i> Distribution des temps de trajet</h4>
+            <img src="data:image/png;base64,{{ commute_chart }}" class="img-fluid" alt="Temps de trajet">
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-12">
+        <div class="chart-container">
+            <h4 class="mb-3"><i class="fas fa-balance-scale"></i> Comparaison urbain vs rural</h4>
+            <img src="data:image/png;base64,{{ zone_chart }}" class="img-fluid" alt="Comparaison zones">
+        </div>
+    </div>
+</div>
+
+<div class="row mt-4">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title"><i class="fas fa-info-circle"></i> À propos</h5>
+                <p class="card-text">
+                    Ce tableau de bord permet d'analyser les disparités de mobilité entre les communes françaises.
+                    Il s'appuie sur des données ouvertes de l'INSEE et d'Open Data France pour identifier
+                    les zones mal desservies et proposer des pistes d'amélioration.
+                </p>
+                <ul>
+                    <li><strong>Taux de couverture transport :</strong> Pourcentage de population avec accès direct aux transports en commun</li>
+                    <li><strong>Mobilité verte :</strong> Part des déplacements en vélo et transports en commun</li>
+                    <li><strong>Zones mal desservies :</strong> Communes sans accès direct aux transports ou avec un temps de trajet supérieur à la médiane</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

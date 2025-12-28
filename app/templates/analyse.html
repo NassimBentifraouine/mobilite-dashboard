@@ -1,0 +1,145 @@
+{% extends "base.html" %}
+
+{% block title %}Analyse détaillée - Tableau de bord Mobilité{% endblock %}
+
+{% block content %}
+<div class="row mb-4">
+    <div class="col-12">
+        <h1 class="display-5 mb-4">
+            <i class="fas fa-chart-line"></i> Analyse détaillée
+        </h1>
+    </div>
+</div>
+
+<!-- Graphique de comparaison -->
+{% if chart %}
+<div class="row mb-4">
+    <div class="col-12">
+        <div class="chart-container">
+            <h4 class="mb-3"><i class="fas fa-chart-bar"></i> Analyse par département</h4>
+            <img src="data:image/png;base64,{{ chart }}" class="img-fluid" alt="Analyse départements">
+        </div>
+    </div>
+</div>
+{% endif %}
+
+<!-- Tableau récapitulatif -->
+<div class="row mb-4">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header bg-primary text-white">
+                <h5 class="mb-0"><i class="fas fa-table"></i> Récapitulatif par département</h5>
+            </div>
+            <div class="card-body p-0">
+                {% if df_agg is not none and not df_agg.empty %}
+                <div class="table-responsive">
+                    <table class="table table-hover mb-0">
+                        <thead class="table-light">
+                            <tr>
+                                <th>Département</th>
+                                <th class="text-end">Population</th>
+                                <th class="text-end">Temps moyen (min)</th>
+                                <th class="text-end">Taux vélo (%)</th>
+                                <th class="text-end">Transport commun (%)</th>
+                                <th class="text-end">Voiture (%)</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for index, row in df_agg.iterrows() %}
+                            <tr>
+                                <td><strong>{{ row.departement }}</strong></td>
+                                <td class="text-end">{{ "{:,.0f}".format(row.population).replace(',', ' ') }}</td>
+                                <td class="text-end">{{ "%.1f"|format(row.temps_moyen_trajet) }}</td>
+                                <td class="text-end">{{ "%.1f"|format(row.taux_velo) }}</td>
+                                <td class="text-end">{{ "%.1f"|format(row.taux_transport_commun) }}</td>
+                                <td class="text-end">{{ "%.1f"|format(row.taux_voiture) }}</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+                {% else %}
+                <div class="p-4 text-center text-muted">
+                    <i class="fas fa-inbox fa-3x mb-3"></i>
+                    <p>Aucune donnée disponible</p>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Zones mal desservies -->
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header bg-danger text-white">
+                <h5 class="mb-0"><i class="fas fa-exclamation-triangle"></i> Top 10 des zones mal desservies</h5>
+            </div>
+            <div class="card-body p-0">
+                {% if df_underserved is not none and not df_underserved.empty %}
+                <div class="table-responsive">
+                    <table class="table table-hover mb-0">
+                        <thead class="table-light">
+                            <tr>
+                                <th>Commune</th>
+                                <th>Département</th>
+                                <th>Type</th>
+                                <th class="text-end">Population</th>
+                                <th class="text-end">Temps trajet (min)</th>
+                                <th class="text-center">Accès transport</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for index, row in df_underserved.iterrows() %}
+                            <tr>
+                                <td><strong>{{ row.nom_commune }}</strong></td>
+                                <td>{{ row.departement }}</td>
+                                <td>
+                                    <span class="badge bg-{{ 'primary' if row.type_zone == 'urbain' else 'secondary' }}">
+                                        {{ row.type_zone }}
+                                    </span>
+                                </td>
+                                <td class="text-end">{{ "{:,.0f}".format(row.population).replace(',', ' ') }}</td>
+                                <td class="text-end">{{ "%.1f"|format(row.temps_moyen_trajet) }}</td>
+                                <td class="text-center">
+                                    {% if row.a_acces_transport %}
+                                    <i class="fas fa-check-circle text-success"></i>
+                                    {% else %}
+                                    <i class="fas fa-times-circle text-danger"></i>
+                                    {% endif %}
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+                {% else %}
+                <div class="p-4 text-center text-muted">
+                    <i class="fas fa-inbox fa-3x mb-3"></i>
+                    <p>Aucune donnée disponible</p>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Recommandations -->
+<div class="row mt-4">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title"><i class="fas fa-lightbulb"></i> Recommandations</h5>
+                <ul>
+                    <li>Prioriser les investissements dans les zones mal desservies à forte population</li>
+                    <li>Développer les infrastructures cyclables dans les zones urbaines</li>
+                    <li>Renforcer les lignes de transport en commun dans les zones rurales</li>
+                    <li>Étudier la possibilité de transport à la demande pour les zones isolées</li>
+                    <li>Encourager le covoiturage dans les zones avec forte dépendance à la voiture</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
