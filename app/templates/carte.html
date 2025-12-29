@@ -1,81 +1,72 @@
 {% extends "base.html" %}
 
-{% block title %}Carte interactive - Tableau de bord Mobilité{% endblock %}
+{% block title %}Carte interactive{% endblock %}
 
 {% block content %}
 <div class="row mb-4">
     <div class="col-12">
-        <h1 class="display-5 mb-4">
-            <i class="fas fa-map-marked-alt"></i> Carte interactive des communes
-        </h1>
+        <h1 class="display-5"><i class="fas fa-map-marked-alt"></i> Carte des communes</h1>
     </div>
 </div>
 
-<div class="filter-section">
-    <h4 class="mb-3"><i class="fas fa-filter"></i> Filtres</h4>
+<div class="filter-section p-4 bg-light mb-4 border">
+    <h5 class="mb-3"><i class="fas fa-filter"></i> Filtres</h5>
     <form method="GET" action="/carte">
-        <div class="row">
-            <div class="col-md-4">
-                <label for="department" class="form-label">Département</label>
-                <select name="department" id="department" class="form-select">
-                    <option value="all" {% if selected_department == 'all' %}selected{% endif %}>Tous les départements</option>
-                    {% for dept in departments %}
-                    <option value="{{ dept }}" {% if selected_department == dept %}selected{% endif %}>{{ dept }}</option>
+        <div class="row g-3">
+            <div class="col-md-3">
+                <select name="department" class="form-select">
+                    <option value="all">Département (Tous)</option>
+                    {% for d in departments %}
+                    <option value="{{ d }}" {% if selected_department == d %}selected{% endif %}>{{ d }}</option>
                     {% endfor %}
                 </select>
             </div>
-            <div class="col-md-4">
-                <label for="zone_type" class="form-label">Type de zone</label>
-                <select name="zone_type" id="zone_type" class="form-select">
-                    <option value="all" {% if selected_zone_type == 'all' %}selected{% endif %}>Toutes les zones</option>
+            <div class="col-md-3">
+                <select name="zone_type" class="form-select">
+                    <option value="all">Zone (Toutes)</option>
                     <option value="urbain" {% if selected_zone_type == 'urbain' %}selected{% endif %}>Urbain</option>
                     <option value="rural" {% if selected_zone_type == 'rural' %}selected{% endif %}>Rural</option>
                 </select>
             </div>
-            <div class="col-md-4 d-flex align-items-end">
-                <button type="submit" class="btn btn-primary w-100">
-                    <i class="fas fa-search"></i> Filtrer
-                </button>
+            <div class="col-md-3">
+                <select name="age_class" class="form-select">
+                    <option value="all">Population (Toute)</option>
+                    <option value="Jeunes" {% if selected_age_class == 'Jeunes' %}selected{% endif %}>Jeunes</option>
+                    <option value="Actifs" {% if selected_age_class == 'Actifs' %}selected{% endif %}>Actifs</option>
+                    <option value="Seniors" {% if selected_age_class == 'Seniors' %}selected{% endif %}>Seniors</option>
+                </select>
+            </div>
+            <div class="col-md-3">
+                <select name="transport_type" class="form-select">
+                    <option value="all">Transport Dominant</option>
+                    <option value="velo" {% if selected_transport_type == 'velo' %}selected{% endif %}>Vélo (>10%)</option>
+                    <option value="commun" {% if selected_transport_type == 'commun' %}selected{% endif %}>Commun (>40%)</option>
+                    <option value="voiture" {% if selected_transport_type == 'voiture' %}selected{% endif %}>Voiture (>60%)</option>
+                </select>
+            </div>
+            <div class="col-12">
+                <button type="submit" class="btn btn-primary w-100">Appliquer</button>
             </div>
         </div>
     </form>
 </div>
 
-<div class="card mb-4">
-    <div class="card-body">
-        <h5 class="card-title"><i class="fas fa-info-circle"></i> Légende</h5>
-        <div class="row">
-            <div class="col-md-6">
-                <p>
-                    <i class="fas fa-circle text-success"></i> <strong>Vert :</strong> Commune avec accès aux transports
-                </p>
-            </div>
-            <div class="col-md-6">
-                <p>
-                    <i class="fas fa-circle text-danger"></i> <strong>Rouge :</strong> Commune mal desservie
-                </p>
-            </div>
-        </div>
-        <p class="mb-0"><small>La taille des cercles est proportionnelle à la population de la commune.</small></p>
-    </div>
+<div class="d-flex justify-content-center mb-3 gap-4">
+    <span><i class="fas fa-circle" style="color: #2ecc71;"></i> Top Mobilité</span>
+    <span><i class="fas fa-circle" style="color: #f39c12;"></i> Moyen</span>
+    <span><i class="fas fa-circle" style="color: #e74c3c;"></i> Faible/Voiture</span>
 </div>
 
-<div class="card">
+<div class="card shadow-sm mb-4">
     <div class="card-body p-0">
-        <div style="height: 600px; border-radius: 10px; overflow: hidden;">
+        <div style="height: 600px; border-radius: 4px; overflow: hidden;">
             {{ map_html|safe }}
         </div>
     </div>
 </div>
 
-<div class="row mt-4">
-    <div class="col-12 text-center">
-        <a href="/export/csv?department={{ selected_department }}" class="btn btn-primary btn-export">
-            <i class="fas fa-file-csv"></i> Exporter en CSV
-        </a>
-        <a href="/export/pdf?department={{ selected_department }}" class="btn btn-danger btn-export">
-            <i class="fas fa-file-pdf"></i> Exporter en PDF
-        </a>
-    </div>
+<div class="text-center">
+    <a href="/export/csv?department={{ selected_department }}" class="btn btn-outline-secondary btn-sm"><i class="fas fa-file-csv"></i> CSV</a>
+    <a href="/export/pdf?department={{ selected_department }}" class="btn btn-outline-danger btn-sm"><i class="fas fa-file-pdf"></i> PDF</a>
 </div>
 {% endblock %}
